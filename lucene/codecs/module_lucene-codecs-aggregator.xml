@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_lucene-codecs-aggregator" default="compile.module.lucene-codecs-aggregator">
+  <dirname property="module.lucene-codecs-aggregator.basedir" file="${ant.file.module_lucene-codecs-aggregator}"/>
+  
+  <property name="module.jdk.home.lucene-codecs-aggregator" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.lucene-codecs-aggregator" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.lucene-codecs-aggregator" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.lucene-codecs-aggregator" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="lucene-codecs-aggregator.output.dir" value="${module.lucene-codecs-aggregator.basedir}/target/classes"/>
+  <property name="lucene-codecs-aggregator.testoutput.dir" value="${module.lucene-codecs-aggregator.basedir}/target/test-classes"/>
+  
+  <path id="lucene-codecs-aggregator.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="lucene-codecs-aggregator.module.production.classpath">
+    <path refid="${module.jdk.classpath.lucene-codecs-aggregator}"/>
+  </path>
+  
+  <path id="lucene-codecs-aggregator.runtime.production.module.classpath">
+    <pathelement location="${lucene-codecs-aggregator.output.dir}"/>
+  </path>
+  
+  <path id="lucene-codecs-aggregator.module.classpath">
+    <path refid="${module.jdk.classpath.lucene-codecs-aggregator}"/>
+    <pathelement location="${lucene-codecs-aggregator.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_com.carrotsearch.randomizedtesting:randomizedtesting-runner:2.7.2.classpath"/>
+  </path>
+  
+  <path id="lucene-codecs-aggregator.runtime.module.classpath">
+    <pathelement location="${lucene-codecs-aggregator.testoutput.dir}"/>
+    <pathelement location="${lucene-codecs-aggregator.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_com.carrotsearch.randomizedtesting:randomizedtesting-runner:2.7.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.lucene-codecs-aggregator">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.lucene-codecs-aggregator">
+    <patternset refid="excluded.from.module.lucene-codecs-aggregator"/>
+  </patternset>
+  
+  
+  <target name="compile.module.lucene-codecs-aggregator" depends="compile.module.lucene-codecs-aggregator.production,compile.module.lucene-codecs-aggregator.tests" description="Compile module lucene-codecs-aggregator"/>
+  
+  <target name="compile.module.lucene-codecs-aggregator.production" depends="register.custom.compilers" description="Compile module lucene-codecs-aggregator; production classes"/>
+  
+  <target name="compile.module.lucene-codecs-aggregator.tests" depends="register.custom.compilers,compile.module.lucene-codecs-aggregator.production" description="compile module lucene-codecs-aggregator; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.lucene-codecs-aggregator" description="cleanup module">
+    <delete dir="${lucene-codecs-aggregator.output.dir}"/>
+    <delete dir="${lucene-codecs-aggregator.testoutput.dir}"/>
+  </target>
+</project>

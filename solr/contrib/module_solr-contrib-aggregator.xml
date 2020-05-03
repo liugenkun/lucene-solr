@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_solr-contrib-aggregator" default="compile.module.solr-contrib-aggregator">
+  <dirname property="module.solr-contrib-aggregator.basedir" file="${ant.file.module_solr-contrib-aggregator}"/>
+  
+  <property name="module.jdk.home.solr-contrib-aggregator" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.solr-contrib-aggregator" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.solr-contrib-aggregator" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.solr-contrib-aggregator" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="solr-contrib-aggregator.output.dir" value="${module.solr-contrib-aggregator.basedir}/target/classes"/>
+  <property name="solr-contrib-aggregator.testoutput.dir" value="${module.solr-contrib-aggregator.basedir}/target/test-classes"/>
+  
+  <path id="solr-contrib-aggregator.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="solr-contrib-aggregator.module.production.classpath">
+    <path refid="${module.jdk.classpath.solr-contrib-aggregator}"/>
+  </path>
+  
+  <path id="solr-contrib-aggregator.runtime.production.module.classpath">
+    <pathelement location="${solr-contrib-aggregator.output.dir}"/>
+  </path>
+  
+  <path id="solr-contrib-aggregator.module.classpath">
+    <path refid="${module.jdk.classpath.solr-contrib-aggregator}"/>
+    <pathelement location="${solr-contrib-aggregator.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_com.carrotsearch.randomizedtesting:randomizedtesting-runner:2.7.2.classpath"/>
+  </path>
+  
+  <path id="solr-contrib-aggregator.runtime.module.classpath">
+    <pathelement location="${solr-contrib-aggregator.testoutput.dir}"/>
+    <pathelement location="${solr-contrib-aggregator.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_com.carrotsearch.randomizedtesting:randomizedtesting-runner:2.7.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.solr-contrib-aggregator">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.solr-contrib-aggregator">
+    <patternset refid="excluded.from.module.solr-contrib-aggregator"/>
+  </patternset>
+  
+  
+  <target name="compile.module.solr-contrib-aggregator" depends="compile.module.solr-contrib-aggregator.production,compile.module.solr-contrib-aggregator.tests" description="Compile module solr-contrib-aggregator"/>
+  
+  <target name="compile.module.solr-contrib-aggregator.production" depends="register.custom.compilers" description="Compile module solr-contrib-aggregator; production classes"/>
+  
+  <target name="compile.module.solr-contrib-aggregator.tests" depends="register.custom.compilers,compile.module.solr-contrib-aggregator.production" description="compile module solr-contrib-aggregator; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.solr-contrib-aggregator" description="cleanup module">
+    <delete dir="${solr-contrib-aggregator.output.dir}"/>
+    <delete dir="${solr-contrib-aggregator.testoutput.dir}"/>
+  </target>
+</project>

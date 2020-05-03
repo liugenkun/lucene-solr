@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_lucene-misc" default="compile.module.lucene-misc">
+  <dirname property="module.lucene-misc.basedir" file="${ant.file.module_lucene-misc}"/>
+  
+  <property name="module.jdk.home.lucene-misc" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.lucene-misc" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.lucene-misc" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.lucene-misc" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="lucene-misc.output.dir" value="${module.lucene-misc.basedir}/target/classes"/>
+  <property name="lucene-misc.testoutput.dir" value="${module.lucene-misc.basedir}/target/test-classes"/>
+  
+  <path id="lucene-misc.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="lucene-misc.module.production.classpath">
+    <path refid="${module.jdk.classpath.lucene-misc}"/>
+    <pathelement location="${lucene-core.output.dir}"/>
+  </path>
+  
+  <path id="lucene-misc.runtime.production.module.classpath">
+    <pathelement location="${lucene-misc.output.dir}"/>
+    <path refid="lucene-core.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="lucene-misc.module.classpath">
+    <path refid="${module.jdk.classpath.lucene-misc}"/>
+    <pathelement location="${lucene-misc.output.dir}"/>
+    <pathelement location="${lucene-test-framework.testoutput.dir}"/>
+    <pathelement location="${lucene-test-framework.output.dir}"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <pathelement location="${lucene-core.testoutput.dir}"/>
+    <pathelement location="${lucene-core.output.dir}"/>
+    <pathelement location="${lucene-codecs.testoutput.dir}"/>
+    <pathelement location="${lucene-codecs.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_com.carrotsearch.randomizedtesting:randomizedtesting-runner:2.7.2.classpath"/>
+  </path>
+  
+  <path id="lucene-misc.runtime.module.classpath">
+    <pathelement location="${lucene-misc.testoutput.dir}"/>
+    <pathelement location="${lucene-misc.output.dir}"/>
+    <path refid="lucene-test-framework.runtime.module.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+    <path refid="lucene-core.runtime.module.classpath"/>
+    <path refid="lucene-codecs.runtime.module.classpath"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_com.carrotsearch.randomizedtesting:randomizedtesting-runner:2.7.2.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.lucene-misc">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.lucene-misc">
+    <patternset refid="excluded.from.module.lucene-misc"/>
+  </patternset>
+  
+  
+  <target name="compile.module.lucene-misc" depends="compile.module.lucene-misc.production,compile.module.lucene-misc.tests" description="Compile module lucene-misc"/>
+  
+  <target name="compile.module.lucene-misc.production" depends="register.custom.compilers,compile.module.lucene-test-framework,compile.module.lucene-core,compile.module.lucene-codecs" description="Compile module lucene-misc; production classes"/>
+  
+  <target name="compile.module.lucene-misc.tests" depends="register.custom.compilers,compile.module.lucene-misc.production" description="compile module lucene-misc; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.lucene-misc" description="cleanup module">
+    <delete dir="${lucene-misc.output.dir}"/>
+    <delete dir="${lucene-misc.testoutput.dir}"/>
+  </target>
+</project>
